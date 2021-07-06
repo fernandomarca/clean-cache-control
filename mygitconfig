@@ -1,0 +1,12 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+name = Fernando Marca Magalhães 
+email = fernandomarca@hotmail.com
+[core]
+editor = code
+[alias]
+c = !git add --all && git commit -m
+l = !git log --pretty=format:'%C(white)%h %C(yellow)%s - %C(cyan)%cn %C(green)%cr'
+s = !git status -s
+
