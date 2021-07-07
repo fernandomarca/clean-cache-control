@@ -3,6 +3,7 @@ import { ICacheStore } from "@/data/protocols/cache";
 
 class CacheStoreSpy implements ICacheStore {
   deleteCallsCount = 0;
+  insertCallsCount = 0;
   key = "";
 
   delete(key: string) {
@@ -41,5 +42,15 @@ describe("LocalSavePurchases", () => {
     const { sut, cacheStore } = makeSut();
     await sut.save();
     expect(cacheStore.key).toBe("purchases");
+  });
+
+  test("Should not insert new cache if delete fails", async () => {
+    const { sut, cacheStore } = makeSut();
+    jest.spyOn(cacheStore, "delete").mockImplementationOnce(() => {
+      throw new Error();
+    });
+    const promise = sut.save();
+    expect(cacheStore.insertCallsCount).toBe(0);
+    expect(promise).rejects.toThrow();
   });
 });
