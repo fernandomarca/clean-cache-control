@@ -1,7 +1,7 @@
 import { ICacheStore } from "@/data/protocols/cache";
 import { SavePurchases } from "@/domain/usecases";
 
-class LocalSavePurchases implements SavePurchases {
+class LocalLoadPurchases implements SavePurchases {
   constructor(private readonly cacheStore: ICacheStore) {}
 
   async save(purchases: Array<SavePurchases.Params>): Promise<void> {
@@ -10,4 +10,4 @@ class LocalSavePurchases implements SavePurchases {
   }
 }
 
-export { LocalSavePurchases };
+export { LocalLoadPurchases };
