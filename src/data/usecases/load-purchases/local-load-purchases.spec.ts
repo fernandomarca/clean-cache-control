@@ -6,9 +6,9 @@ type SutTypes = {
   cacheStore: CacheStoreSpy;
 };
 
-const makeSut = (): SutTypes => {
+const makeSut = (timestamp = new Date()): SutTypes => {
   const cacheStore = new CacheStoreSpy();
-  const sut = new LocalLoadPurchases(cacheStore);
+  const sut = new LocalLoadPurchases(cacheStore, timestamp);
   return {
     sut,
     cacheStore,
@@ -18,7 +18,7 @@ const makeSut = (): SutTypes => {
 describe("LocalLoadPurchases", () => {
   test("Should not delete or insert cache on sut.init", () => {
     const { cacheStore } = makeSut();
-    expect(cacheStore.messages).toEqual([]);
+    expect(cacheStore.actions).toEqual([]);
   });
 
   test("Should call correct key on load",async () => {
