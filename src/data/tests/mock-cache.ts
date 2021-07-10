@@ -2,10 +2,17 @@ import { SavePurchases } from "@/domain/usecases";
 import { ICacheStore } from "../protocols/cache";
 
 export class CacheStoreSpy implements ICacheStore {
+  actions:Array<CacheStoreSpy.Action> = [];
   messages: Array<CacheStoreSpy.Message> = [];
   deleteKey = "";
   insertKey = "";
+  fetchKey = "";
   insertValues: Array<SavePurchases.Params> = [];
+
+  fetch(key: string): void {
+    this.actions.push(CacheStoreSpy.Action.fetch);
+    this.fetchKey = key;
+  }
 
   delete(key: string): void {
     this.messages.push(CacheStoreSpy.Message.delete);
@@ -37,5 +44,6 @@ export namespace CacheStoreSpy {
   export enum Message {
     delete,
     insert,
+    fetch
   }
 }
